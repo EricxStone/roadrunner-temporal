@@ -72,6 +72,7 @@ type Prometheus struct {
 	Address string `mapstructure:"address"`
 	Type    string `mapstructure:"type"`
 	Prefix  string `mapstructure:"prefix"`
+	Interval int `mapstructure:"interval"`
 }
 
 type Metrics struct {
@@ -125,6 +126,10 @@ func (c *Config) InitDefault() error {
 
 			if c.Metrics.Prometheus.Address == "" {
 				c.Metrics.Prometheus.Address = "127.0.0.1:9091"
+			}
+
+			if c.Metrics.Prometheus.Interval == 0 {
+				c.Metrics.Prometheus.Interval = 1
 			}
 
 		case driverStatsd:

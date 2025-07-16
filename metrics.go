@@ -46,7 +46,7 @@ func newStatsExporter(stats Informer) *StatsExporter {
 	}
 }
 
-func newPrometheusScope(c prometheus.Configuration, prefix string, log *zap.Logger) (tally.Scope, io.Closer, error) {
+func newPrometheusScope(c prometheus.Configuration, prefix string, interval int, log *zap.Logger) (tally.Scope, io.Closer, error) {
 	reporter, err := c.NewReporter(
 		prometheus.ConfigurationOptions{
 			Registry: prom.NewRegistry(),
@@ -85,7 +85,7 @@ func newPrometheusScope(c prometheus.Configuration, prefix string, log *zap.Logg
 		SanitizeOptions: &sanitizeOptions,
 		Prefix:          prefix,
 	}
-	scope, closer := tally.NewRootScope(scopeOpts, time.Second)
+	scope, closer := tally.NewRootScope(scopeOpts, time.Duration(interval))
 
 	return scope, closer, nil
 }
@@ -129,7 +129,7 @@ func initMetrics(cfg *Config, log *zap.Logger) (tclient.MetricsHandler, io.Close
 		ms, cl, err := newPrometheusScope(prometheus.Configuration{
 			ListenAddress: cfg.Metrics.Prometheus.Address,
 			TimerType:     cfg.Metrics.Prometheus.Type,
-		}, cfg.Metrics.Prometheus.Prefix, log)
+		}, cfg.Metrics.Prometheus.Prefix, cfg.Metrics.Prometheus.Interval, log)
 		if err != nil {
 			return nil, nil, err
 		}
