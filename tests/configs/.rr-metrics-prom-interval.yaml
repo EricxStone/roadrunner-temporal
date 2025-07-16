@@ -13,7 +13,7 @@ temporal:
     address: "127.0.0.1:9095"
     prefix: "samples"
     type: "summary"
-    interval: 5
+    interval: 10
   activities:
     num_workers: 4
 
