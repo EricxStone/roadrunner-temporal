@@ -10,7 +10,7 @@ temporal:
   address: "127.0.0.1:7233"
   metrics:
     driver: prometheus
-    address: "127.0.0.1:9095"
+    address: "127.0.0.1:9096"
     prefix: "samples"
     type: "summary"
     interval: 10
