@@ -69,10 +69,10 @@ type StatsdReporterConfig struct {
 }
 
 type Prometheus struct {
-	Address string `mapstructure:"address"`
-	Type    string `mapstructure:"type"`
-	Prefix  string `mapstructure:"prefix"`
-	Interval int `mapstructure:"interval"`
+	Address  string `mapstructure:"address"`
+	Type     string `mapstructure:"type"`
+	Prefix   string `mapstructure:"prefix"`
+	Interval int    `mapstructure:"interval"`
 }
 
 type Metrics struct {
